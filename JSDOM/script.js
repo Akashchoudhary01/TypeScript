@@ -70,40 +70,86 @@
 
 // observerPattern
 
-class YoutubeChannel{
-    constructor(name){
-        this.name = name;
-        this.subscriber= []
-    }
-    subscribe(user){
-        this.subscriber.push(user);
-        user.update (`${user.name}, You subscribed The Channel`)
-    }
-    unsubscribe(user){
-        this.subscriber = this.subscriber.filter(sub => sub !==user);
-        user.update (`${user.name}, You Unsubscribed The Channel`)
-    }
-    notify(message){
-        this.subscriber.forEach((sub)=> sub.update(message))
-    }
-}
+// class YoutubeChannel{
+//     constructor(nameg){
+//         this.name = name;
+//         this.subscriber= []
+//     }
+//     subscribe(user){
+//         this.subscriber.push(user);
+//         user.update (`${user.name}, You subscribed The Channel`)
+//     }
+//     unsubscribe(user){
+//         this.subscriber = this.subscriber.filter(sub => sub !==user);
+//         user.update (`${user.name}, You Unsubscribed The Channel`)
+//     }
+//     notify(message){
+//         this.subscriber.forEach((sub)=> sub.update(message))
+//     }
+// }
 
-class User {
-    constructor(name){
-        this.name = name
-    }
-    update(data){
-        console.log(`${this.name} , ${data}`);
+// class User {
+//     constructor(name){
+//         this.name = name
+//     }
+//     update(data){
+//         console.log(`${this.name} , ${data}`);
         
 
+//     }
+// }
+
+// let akashChoudhary = new YoutubeChannel("Akashhh")
+// let user1 = new User("Akash")
+// let user2 = new User("Rishabh")
+// // akashChoudhary.subscribe(user1);
+// akashChoudhary.subscribe(user1)
+// akashChoudhary.subscribe(user2)
+
+// akashChoudhary.notify("New Video is live on the channel")
+
+
+let input = document.createElement("input")
+document.body.appendChild(input);
+
+
+
+// Debouncing
+const debounce = (fnc , delay)=>{
+    let timer;
+   return  function(...args){
+        clearTimeout(timer);
+        timer = setTimeout(()=>{
+            fnc(...args)
+           
+            
+           
+            
+        } , delay)
     }
+
 }
 
-let akashChoudhary = new YoutubeChannel("Akashhh")
-let user1 = new User("Akash")
-let user2 = new User("Rishabh")
-// akashChoudhary.subscribe(user1);
-akashChoudhary.subscribe(user1)
-akashChoudhary.subscribe(user2)
+input.addEventListener("input" ,debounce(function(e){
+    console.log(e.target.value);
+    
+}, 1000))
 
-akashChoudhary.notify("New Video is live on the channel")
+// throttling 
+function throttling(fnc , deley){
+    let timer =0;
+    return function (...args){
+        let currTime = Date.now();
+        if(currTime - timer >= deley){
+
+            timer = currTime;
+            fnc(...args)
+        }
+    }
+
+}
+let inputt = document.createElement("input")
+document.body.appendChild(inputt);
+inputt.addEventListener("input" ,throttling(function(e){
+    console.log(e.target.value);
+}, 2000))
